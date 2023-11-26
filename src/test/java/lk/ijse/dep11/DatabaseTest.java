@@ -34,8 +34,13 @@ public class DatabaseTest {
     }
     @Order(2)
     @Test
-     public void testValidContacts(){
-        System.out.println("2");
+     public void testValidContacts() throws SQLException {
+        Statement stm = connection.createStatement();
+        ResultSet rst = stm.executeQuery("SELECT *FROM customer WHERE contact NOT REGEXP '\\d{3}-\\d{7}'");
+        assertFalse(rst.next());
+
+
+
 
     }
     @Order(3)
