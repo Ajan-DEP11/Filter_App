@@ -45,8 +45,12 @@ public class DatabaseTest {
     }
     @Order(3)
     @Test
-    public void testUniqueContacts(){
-        System.out.println("3");
+    public void testUniqueContacts() throws SQLException {
+        Statement stm = connection.createStatement();
+        ResultSet rst = stm.executeQuery("SELECT contact, COUNT(contact) AS count FROM customer GROUP BY contact HAVING count>1");
+        assertFalse(rst.next());
+
+
 
     }
     @Order(4)
