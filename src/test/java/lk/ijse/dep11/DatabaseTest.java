@@ -1,9 +1,7 @@
 package lk.ijse.dep11;
 import org.junit.jupiter.api.*;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,9 +25,12 @@ public class DatabaseTest {
 
     @Order(1)
     @Test
-    public void testDBExceeds1000records(){
-        System.out.println("1");
-
+    public void testDBExceeds1000records() throws SQLException {
+        Statement stm = connection.createStatement();
+        ResultSet rst = stm.executeQuery("SELECT COUNT(*) FROM customer");
+        rst.next();
+        int numberOfRecordds = rst.getInt(1);
+        assertTrue(numberOfRecordds >= 1000);
     }
     @Order(2)
     @Test
