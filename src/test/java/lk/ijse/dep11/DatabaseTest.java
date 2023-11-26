@@ -55,8 +55,12 @@ public class DatabaseTest {
     }
     @Order(4)
     @Test
-    public void testUniqueCustomerNames(){
-        System.out.println("4");
+    public void testUniqueCustomerNames() throws SQLException {
+        Statement stm = connection.createStatement();
+        ResultSet rst = stm.executeQuery("SELECT CONCAT(first_name,' ',last_name) AS name,COUNT(*) AS count FROM customer GROUP BY first_name,last_name HAVING count>1");
+        assertFalse(rst.next());
+
+
 
     }
 }
